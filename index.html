@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=0.5, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <title>Calculate aspects of common geometrical shapes</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/geometry.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/appstyles.css">
+</head>
+<body>
+	<form id="frmGeometry">
+	<div class="hdr">
+		Workshop Geometry
+		<div class="btns">
+			<input type="button" id="btnClear" class="btn" value="Reset">
+			<input type="button" id="btnCalc" class="btn" value="Calculate">
+		</div>
+	</div>
+	<ul class="tabs">
+		<li>
+			<input name="fldType" type="radio" id="tab1" value="circle" checked>
+			<label for="tab1" class="tab-label">Circles</label>
+			<div id="frmCircle" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldRadius">Radius</label>, <label for="fldDiameter">diameter</label>:</td>
+						<td><input id="fldRadius" type="number" min="0" step="0.01" value="0" title="Radius of circle"></td>
+						<td><input id="fldDiameter" type="number" min="0" step="0.01" value="0" title="Diameter of circle"></td>
+					</tr>
+					<tr>
+						<td><label for="fldCircum">Perimeter</label>, <label for="fldCArea">area</label>:</td>
+						<td><input id="fldCircum" type="number" min="0" step="0.01" value="0" title="Circumference of circle"></td>
+						<td><input id="fldCArea" type="number" min="0" step="0.01" value="0" title="Area of circle"></td>
+					</tr>
+					<tr>
+						<td><label for="fldSegAngle">Seg angle</label>, <label for="fldSegHeight">height</label>:</td>
+						<td><input id="fldSegAngle" type="number" min="0" max="180" step="0.01" value="0" title="Angle of segment at the centre"></td>
+						<td><input id="fldSegHeight" type="number" min="0" step="0.01" value="0" title="Distance from the centre to middle of the chord"></td>
+					</tr>
+					<tr>
+						<td><label for="fldChordLen">Chord length</label>, <label for="fldChordDepth">depth</label>:</td>
+						<td><input id="fldChordLen" type="number" min="0" step="0.01" value="0" title="Length of chord"></td>
+						<td><input id="fldChordDepth" type="number" min="0" step="0.01" value="0" title="Distance from centre of chord to edge of circle"></td>
+					</tr>
+					<tr>
+						<td><label for="fldSegArea">Segment</label>, <label for="fldChordArea">chord area</label>:</td>
+						<td><input id="fldSegArea" type="text" readonly title="Area of segment"></td>
+						<td><input id="fldChordArea" type="text" readonly title="Area of chord"></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+
+		<li>
+			<input name="fldType" type="radio" id="tab2" value="polygon">
+			<label for="tab2" class="tab-label">Polygons</label>
+			<div id="frmPolygon" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldSides">Number of sides</label>:</td>
+						<td><input id="fldSides" type="number" min="3" size="6" value="6" title="Number of sides"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldIntAng">Internal angle</label>:</td>
+						<td><input id="fldIntAng" type="text" readonly title="Angle between adjacent sides"></td>
+						<td>(between sides)</td>
+					</tr>
+					<tr>
+						<td><label for="fldExtAng">Centre angle</label>:</td>
+						<td><input id="fldExtAng" type="text" readonly title="Angle between adjacent diagonals"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldSideLen">Side length</label>:</td>
+						<td><input id="fldSideLen" type="number" min="0" step="0.01" value="0" title="Length of each side"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldIntRad">Inner radius</label>, <label for="fldIntDia">diam</label>:</td>
+						<td><input id="fldIntRad" type="number" min="0" step="0.01" value="0" title="Radius of inscribed circle"></td>
+						<td><input id="fldIntDia" type="number" min="0" step="0.01" value="0" title="Diameter of inscribed circle"></td>
+					</tr>
+					<tr>
+						<td><label for="fldExtRad">Outer radius</label>, <label for="fldExtDia">diam</label>:</td>
+						<td><input id="fldExtRad" type="number" min="0" step="0.01" value="0" title="Radius of circumscribed circle"></td>
+						<td><input id="fldExtDia" type="number" min="0" step="0.01" value="0" title="Diameter of circumscribed circle"></td>
+					</tr>
+					<tr>
+						<td><label for="fldGHeight">Height</label>, <label for="fldGArea">area</label>:</td>
+						<td><input id="fldGHeight" type="number" min="0" step="0.01" value="0" title="Overall height"></td>
+						<td><input id="fldGArea" type="number" min="0" step="0.01" value="0" title="Total area"></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+
+		<li>
+			<input name="fldType" type="radio" id="tab3" value="triangle">
+			<label for="tab3" class="tab-label">Right triangles</label>
+			<div id="frmTriangle" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldTriLen1">Side lengths</label>:</td>
+						<td><input id="fldTriLen1" type="number" min="0" step="0.01" value="0" title="First side length"></td>
+						<td><input id="fldTriLen2" type="number" min="0" step="0.01" value="0" title="Second side length"></td>
+					</tr>
+					<tr>
+						<td><label for="fldTriLen3">Hypotenuse</label>:</td>
+						<td><input id="fldTriLen3" type="number" min="0" step="0.01" value="0" title="Length of hypotenuse"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldTriAng1">Angles</label>:</td>
+						<td><input id="fldTriAng1" type="number" min="0" max="90" step="0.01" value="0" title="First angle (opposite first side)"></td>
+						<td><input id="fldTriAng2" type="number" min="0" max="90" step="0.01" value="0" title="Second angle (opposite second side)"></td>
+					</tr>
+					<tr>
+						<td><label for="fldTriArea">Area</label>:</td>
+						<td><input id="fldTriArea" type="number" min="0" step="0.01" value="0" title="Area of triangle"></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+
+		<li>
+			<input name="fldType" type="radio" id="tab4" value="rectangle">
+			<label for="tab4" class="tab-label">Rectangles</label>
+			<div id="frmRectangle" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldRecSide1">Side lengths</label>:</td>
+						<td><input id="fldRecSide1" type="number" min="0" step="0.01" value="0" title="Length of first side"></td>
+						<td><input id="fldRecSide2" type="number" min="0" step="0.01" value="0" title="Length of second side"></td>
+					</tr>
+					<tr>
+						<td><label for="fldRecDiag">Diagonal</label>, <label for="fldRecArea">area</label>:</td>
+						<td><input id="fldRecDiag" type="number" min="0" step="0.01" value="0" title="Length of diagonal"></td>
+						<td><input id="fldRecArea" type="number" min="0" step="0.01" value="0" title="Area"></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+		
+		<li>
+			<input name="fldType" type="radio" id="tab5" value="pcd">
+			<label for="tab5" class="tab-label">PCD</label>
+			<div id="frmPCD" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldPcdDia">PCD</label>, <label for="fldPcdNum">count</label>:</td>
+						<td><input id="fldPcdDia" type="number" min="0" step="0.01" value="0" title="Pitch circle diameter (PCD)"></td>
+						<td><input id="fldPcdNum" type="number" min="0" step="1" value="0" title="Number of points"></td>
+					</tr>
+					<tr>
+						<td><label for="fldPcdAng">Angle</label>, <label for="fldPcdSize">hole size</label>:</td>
+						<td><input id="fldPcdAng" type="number" min="0" step="0.01" value="0" title="Angle between points"></td>
+						<td><input id="fldPcdSize" type="number" min="0" step="0.01" value="0" title="Diameter of holes on PCD (may be zero)"></td>
+					</tr>
+					<tr>
+						<td><label for="fldPcdCtr">Across centres</label>, <label for="fldPcdCheck">holes</label>:</td>
+						<td><input id="fldPcdCtr" type="text" readonly title="Distance between hole centres"></td>
+						<td><input id="fldPcdCheck" type="text" readonly title="Distance across adjacent holes"></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+
+		<li>
+			<input name="fldType" type="radio" id="tab6" value="sine">
+			<label for="tab6" class="tab-label">Sine</label>
+			<div id="frmSine" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldSinLen">Length</label>, <label for="fldSinHgt">height</label>:</td>
+						<td><input id="fldSinLen" type="number" min="0" step="0.01" value="0" title="Length of sine bar"></td>
+						<td><input id="fldSinHgt" type="number" min="0" step="0.01" value="0" title="Height of sine bar"></td>
+					</tr>
+					<tr>
+						<td><label for="fldSinAng">Angle</label>:</td>
+						<td><input id="fldSinAng" type="number" min="0" step="0.01" value="0" title="Elevation angle"></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+	</ul>
+	
+	</form>
+
+	<form id="frmEnd">
+	</form>
+<script>
+	window.onload = function()
+    {
+		document.addEventListener("deviceready", geometryCalcs.init(), false);
+    }
+</script>
+</body>
+</html>
