@@ -10,4 +10,5 @@
     <content src="index.html" />
     <access origin="*" />
     <icon src="icon.png" />
+    <icon src="res/icon-96.png" platform="android" qualifier="xhdpi" />
 </widget>
