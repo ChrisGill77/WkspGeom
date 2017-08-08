@@ -20,7 +20,7 @@ var geometryCalcs = (function() {
 	var dia2 = 0;
 	var circum  =0;
 
-    var dps = 2;
+    var dps = 3;
 
 	//
 	// Initialise the form
@@ -28,6 +28,48 @@ var geometryCalcs = (function() {
 	function initialise() {
 		$("#btnCalc").click(function(){calculateForm()});
 		$("#btnClear").click(function(){clearForm()});
+		$("#btnHelp").click(function(){helpForm()});
+		$("#btnBack").click(function(){backForm()});
+
+		// Set the step size for numeric fields to avoid complaints from browsers
+		var step = Math.pow(10, -dps);
+		$("#fldRadius").attr("step", step);
+		$("#fldDiameter").attr("step", step);
+		$("#fldCircum").attr("step", step);
+		$("#fldCArea").attr("step", step);
+		$("#fldSegAngle").attr("step", step);
+		$("#fldSegHeight").attr("step", step);
+		$("#fldChordLen").attr("step", step);
+		$("#fldChordDepth").attr("step", step);
+		
+		$("#fldSideLen").attr("step", step);
+		$("#fldIntRad").attr("step", step);
+		$("#fldIntDia").attr("step", step);
+		$("#fldExtRad").attr("step", step);
+		$("#fldExtDia").attr("step", step);
+		$("#fldGHeight").attr("step", step);
+		$("#fldGArea").attr("step", step);
+
+		$("#fldTriLen1").attr("step", step);
+		$("#fldTriLen2").attr("step", step);
+		$("#fldTriLen3").attr("step", step);
+		$("#fldTriAng1").attr("step", step);
+		$("#fldTriAng2").attr("step", step);
+		$("#fldTriArea").attr("step", step);
+
+		$("#fldRecSide1").attr("step", step);
+		$("#fldRecSide2").attr("step", step);
+		$("#fldRecDiag").attr("step", step);
+		$("#fldRecArea").attr("step", step);
+
+		$("#fldPcdDia").attr("step", step);
+		$("#fldPcdAng").attr("step", step);
+		$("#fldPcdSize").attr("step", step);
+
+		$("#fldSinLen").attr("step", step);
+		$("#fldSinHgt").attr("step", step);
+		$("#fldSinAng").attr("step", step);
+
     }
 
 	//
@@ -853,6 +895,22 @@ var geometryCalcs = (function() {
 			case "sine": clearSine();
 				break;
 		}
+	}
+	
+	//
+	// Show the help form
+	//
+	function helpForm() {
+		$("#mainForm").hide();
+		$("#helpForm").show();
+	}
+	
+	//
+	// Go back to the main form
+	//
+	function backForm() {
+		$("#helpForm").hide();
+		$("#mainForm").show();
 	}
 	
 	return {
