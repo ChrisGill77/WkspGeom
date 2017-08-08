@@ -14,11 +14,13 @@
 </head>
 <body>
 	<form id="frmGeometry">
+	<div id="mainForm">
 	<div class="hdr">
 		Workshop Geometry
 		<div class="btns">
-			<input type="button" id="btnClear" class="btn" value="Reset">
-			<input type="button" id="btnCalc" class="btn" value="Calculate">
+			<button type='button' id="btnClear" class="btn">Reset</button>
+			<button type='button' id="btnCalc" class="btn">Calculate</button>
+			<button type='button' id="btnHelp" class="btn">??</button>
 		</div>
 	</div>
 	<ul class="tabs">
@@ -29,23 +31,23 @@
 				<table>
 					<tr>
 						<td><label for="fldRadius">Radius</label>, <label for="fldDiameter">diameter</label>:</td>
-						<td><input id="fldRadius" type="number" min="0" step="0.01" value="0" title="Radius of circle"></td>
-						<td><input id="fldDiameter" type="number" min="0" step="0.01" value="0" title="Diameter of circle"></td>
+						<td><input id="fldRadius" type="number" min="0" value="0" title="Radius of circle"></td>
+						<td><input id="fldDiameter" type="number" min="0" value="0" title="Diameter of circle"></td>
 					</tr>
 					<tr>
-						<td><label for="fldCircum">Perimeter</label>, <label for="fldCArea">area</label>:</td>
-						<td><input id="fldCircum" type="number" min="0" step="0.01" value="0" title="Circumference of circle"></td>
-						<td><input id="fldCArea" type="number" min="0" step="0.01" value="0" title="Area of circle"></td>
+						<td><label for="fldCircum">Circumference</label>, <label for="fldCArea">area</label>:</td>
+						<td><input id="fldCircum" type="number" min="0" value="0" title="Circumference of circle"></td>
+						<td><input id="fldCArea" type="number" min="0" value="0" title="Area of circle"></td>
 					</tr>
 					<tr>
 						<td><label for="fldSegAngle">Seg angle</label>, <label for="fldSegHeight">height</label>:</td>
-						<td><input id="fldSegAngle" type="number" min="0" max="180" step="0.01" value="0" title="Angle of segment at the centre"></td>
-						<td><input id="fldSegHeight" type="number" min="0" step="0.01" value="0" title="Distance from the centre to middle of the chord"></td>
+						<td><input id="fldSegAngle" type="number" min="0" max="180" value="0" title="Angle of segment at the centre"></td>
+						<td><input id="fldSegHeight" type="number" min="0" value="0" title="Distance from the centre to middle of the chord"></td>
 					</tr>
 					<tr>
 						<td><label for="fldChordLen">Chord length</label>, <label for="fldChordDepth">depth</label>:</td>
-						<td><input id="fldChordLen" type="number" min="0" step="0.01" value="0" title="Length of chord"></td>
-						<td><input id="fldChordDepth" type="number" min="0" step="0.01" value="0" title="Distance from centre of chord to edge of circle"></td>
+						<td><input id="fldChordLen" type="number" min="0" value="0" title="Length of chord"></td>
+						<td><input id="fldChordDepth" type="number" min="0" value="0" title="Distance from centre of chord to edge of circle"></td>
 					</tr>
 					<tr>
 						<td><label for="fldSegArea">Segment</label>, <label for="fldChordArea">chord area</label>:</td>
@@ -78,23 +80,23 @@
 					</tr>
 					<tr>
 						<td><label for="fldSideLen">Side length</label>:</td>
-						<td><input id="fldSideLen" type="number" min="0" step="0.01" value="0" title="Length of each side"></td>
+						<td><input id="fldSideLen" type="number" min="0" value="0" title="Length of each side"></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><label for="fldIntRad">Inner radius</label>, <label for="fldIntDia">diam</label>:</td>
-						<td><input id="fldIntRad" type="number" min="0" step="0.01" value="0" title="Radius of inscribed circle"></td>
-						<td><input id="fldIntDia" type="number" min="0" step="0.01" value="0" title="Diameter of inscribed circle"></td>
+						<td><input id="fldIntRad" type="number" min="0" value="0" title="Radius of inscribed circle"></td>
+						<td><input id="fldIntDia" type="number" min="0" value="0" title="Diameter of inscribed circle"></td>
 					</tr>
 					<tr>
 						<td><label for="fldExtRad">Outer radius</label>, <label for="fldExtDia">diam</label>:</td>
-						<td><input id="fldExtRad" type="number" min="0" step="0.01" value="0" title="Radius of circumscribed circle"></td>
-						<td><input id="fldExtDia" type="number" min="0" step="0.01" value="0" title="Diameter of circumscribed circle"></td>
+						<td><input id="fldExtRad" type="number" min="0" value="0" title="Radius of circumscribed circle"></td>
+						<td><input id="fldExtDia" type="number" min="0" value="0" title="Diameter of circumscribed circle"></td>
 					</tr>
 					<tr>
 						<td><label for="fldGHeight">Height</label>, <label for="fldGArea">area</label>:</td>
-						<td><input id="fldGHeight" type="number" min="0" step="0.01" value="0" title="Overall height"></td>
-						<td><input id="fldGArea" type="number" min="0" step="0.01" value="0" title="Total area"></td>
+						<td><input id="fldGHeight" type="number" min="0" value="0" title="Overall height"></td>
+						<td><input id="fldGArea" type="number" min="0" value="0" title="Total area"></td>
 					</tr>
 				</table>
 			</div>
@@ -107,22 +109,22 @@
 				<table>
 					<tr>
 						<td><label for="fldTriLen1">Side lengths</label>:</td>
-						<td><input id="fldTriLen1" type="number" min="0" step="0.01" value="0" title="First side length"></td>
-						<td><input id="fldTriLen2" type="number" min="0" step="0.01" value="0" title="Second side length"></td>
+						<td><input id="fldTriLen1" type="number" min="0" value="0" title="First side length"></td>
+						<td><input id="fldTriLen2" type="number" min="0" value="0" title="Second side length"></td>
 					</tr>
 					<tr>
 						<td><label for="fldTriLen3">Hypotenuse</label>:</td>
-						<td><input id="fldTriLen3" type="number" min="0" step="0.01" value="0" title="Length of hypotenuse"></td>
+						<td><input id="fldTriLen3" type="number" min="0" value="0" title="Length of hypotenuse"></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><label for="fldTriAng1">Angles</label>:</td>
-						<td><input id="fldTriAng1" type="number" min="0" max="90" step="0.01" value="0" title="First angle (opposite first side)"></td>
-						<td><input id="fldTriAng2" type="number" min="0" max="90" step="0.01" value="0" title="Second angle (opposite second side)"></td>
+						<td><input id="fldTriAng1" type="number" min="0" max="90" value="0" title="First angle (opposite first side)"></td>
+						<td><input id="fldTriAng2" type="number" min="0" max="90" value="0" title="Second angle (opposite second side)"></td>
 					</tr>
 					<tr>
 						<td><label for="fldTriArea">Area</label>:</td>
-						<td><input id="fldTriArea" type="number" min="0" step="0.01" value="0" title="Area of triangle"></td>
+						<td><input id="fldTriArea" type="number" min="0" value="0" title="Area of triangle"></td>
 						<td></td>
 					</tr>
 				</table>
@@ -136,13 +138,13 @@
 				<table>
 					<tr>
 						<td><label for="fldRecSide1">Side lengths</label>:</td>
-						<td><input id="fldRecSide1" type="number" min="0" step="0.01" value="0" title="Length of first side"></td>
-						<td><input id="fldRecSide2" type="number" min="0" step="0.01" value="0" title="Length of second side"></td>
+						<td><input id="fldRecSide1" type="number" min="0" value="0" title="Length of first side"></td>
+						<td><input id="fldRecSide2" type="number" min="0" value="0" title="Length of second side"></td>
 					</tr>
 					<tr>
 						<td><label for="fldRecDiag">Diagonal</label>, <label for="fldRecArea">area</label>:</td>
-						<td><input id="fldRecDiag" type="number" min="0" step="0.01" value="0" title="Length of diagonal"></td>
-						<td><input id="fldRecArea" type="number" min="0" step="0.01" value="0" title="Area"></td>
+						<td><input id="fldRecDiag" type="number" min="0" value="0" title="Length of diagonal"></td>
+						<td><input id="fldRecArea" type="number" min="0" value="0" title="Area"></td>
 					</tr>
 				</table>
 			</div>
@@ -155,13 +157,13 @@
 				<table>
 					<tr>
 						<td><label for="fldPcdDia">PCD</label>, <label for="fldPcdNum">count</label>:</td>
-						<td><input id="fldPcdDia" type="number" min="0" step="0.01" value="0" title="Pitch circle diameter (PCD)"></td>
+						<td><input id="fldPcdDia" type="number" min="0" value="0" title="Pitch circle diameter (PCD)"></td>
 						<td><input id="fldPcdNum" type="number" min="0" step="1" value="0" title="Number of points"></td>
 					</tr>
 					<tr>
 						<td><label for="fldPcdAng">Angle</label>, <label for="fldPcdSize">hole size</label>:</td>
-						<td><input id="fldPcdAng" type="number" min="0" step="0.01" value="0" title="Angle between points"></td>
-						<td><input id="fldPcdSize" type="number" min="0" step="0.01" value="0" title="Diameter of holes on PCD (may be zero)"></td>
+						<td><input id="fldPcdAng" type="number" min="0" value="0" title="Angle between points"></td>
+						<td><input id="fldPcdSize" type="number" min="0" value="0" title="Diameter of holes on PCD (may be zero)"></td>
 					</tr>
 					<tr>
 						<td><label for="fldPcdCtr">Across centres</label>, <label for="fldPcdCheck">holes</label>:</td>
@@ -179,22 +181,93 @@
 				<table>
 					<tr>
 						<td><label for="fldSinLen">Length</label>, <label for="fldSinHgt">height</label>:</td>
-						<td><input id="fldSinLen" type="number" min="0" step="0.01" value="0" title="Length of sine bar"></td>
-						<td><input id="fldSinHgt" type="number" min="0" step="0.01" value="0" title="Height of sine bar"></td>
+						<td><input id="fldSinLen" type="number" min="0" value="0" title="Length of sine bar"></td>
+						<td><input id="fldSinHgt" type="number" min="0" value="0" title="Height of sine bar"></td>
 					</tr>
 					<tr>
 						<td><label for="fldSinAng">Angle</label>:</td>
-						<td><input id="fldSinAng" type="number" min="0" step="0.01" value="0" title="Elevation angle"></td>
+						<td><input id="fldSinAng" type="number" min="0" value="0" title="Elevation angle"></td>
 						<td></td>
 					</tr>
 				</table>
 			</div>
 		</li>
 	</ul>
-	
-	</form>
+	</div>
 
-	<form id="frmEnd">
+	<!-- Help page -->
+	<div id="helpForm" hidden>
+	<div class="hdr">
+		Workshop Geometry Help
+		<div class="btns">
+			<button type='button' id="btnBack" class="btn">Back</button>
+		</div>
+	</div>
+The aim of this app is to perform geometrical calculations that might be useful in the workshop. It consists of six tabs for different shapes or type of calculation.
+<br>
+Fields with a grey background are not user editable. As a general rule, only fields with a non-zero value are treated as fields that have to be calculated. Values can be entered to any precision but are calculated to 3 decimals.
+<br>
+Press the CALCULATE button to calculate the missing fields based on the supplied data. Press RESET to clear the fields on the current tab.
+
+<h3>Circles Tab</h3>
+This tab calculates astpects of circles, chords and segments. 
+<br>
+Required fields: Any one of the first four fields, which refer to the circle.
+<br>
+Optional fields: Any one of the second group of four fields, which refer to a segment of the circle.
+<br>
+Notes on fields:
+<ul>
+<li>Segment height is the distance from the centre of the circle to the centre of the chord</li>
+<li>Chord depth is the distance from the perimeter to the centre of the chord</li>
+<li>Segment area is the area of the triangular part of the segment (centre to chord)</li>
+<li>Chord area is the area between the chord and the perimeter. The total segment area is the sum of these two</li>
+</ul>
+<h3>Polygons Tab</h3>
+This section handles regular polygons such as triangles, squares, hexagons, etc.
+<br>
+Minimum requirement: The number of sides (3 or more) and one other value.
+<br>
+Notes on fields:
+<ul>
+<li>Internal angle is the angle between adjacent faces measured at the vertex</li>
+<li>Centre angle is the  angle between vertices measured at the centre. This is also the external angle between the  extension of one face and the adjacent face</li>
+<li>Inner radius & diameter refer to the inscribed circle that touches the centre of each face. For a shape with an even number of sides, such as a hexagon, the inner diameter is the distance across flats</li>
+<li>Outer radius & diameter refer to the superscribed circle that touches each vertex</li>
+<li>Height is the overall height when one face is horizontal. For an even-numbered polygon it is the same as the inner diameter</li>
+</ul>
+<h3>Right Triangles Tab</h3>
+This section deals with triangles containing a right angle. Equilateral triangles are handled by the Polygons section. Scalene triangles are generally the sum or difference of two right triangles and do not have a separate section.
+<br>
+Minimum requirement: Any two fields
+<br>
+Notes on fields:
+<ul>
+<li>The first side is on the opposite side of the triangle to the first angle; likewise with the second side and angle</li>
+</ul>
+<h3>Rectangles Tab</h3>
+This section deals with simple rectangles or squares. Squares are also handled by the Polygons section.
+<br>
+Minimum requirement: Any two fields
+<br>
+<h3>PCD Tab</h3>
+This section deals with pitch circle diameters, including the size of the holes.
+<br>
+Minimum requirement: PCD and count or angle
+<br>
+Optional fields: hole size
+<br>
+Notes on fields:
+<ul>
+<li>Across centres is the distance from one hole centre to the next, as would be set on compasses for marking out</li>
+<li>Across holes is the distance from the edge of one hole to the opposite edge of the next as would be measured when checking</li>
+</ul>
+<h3>Sine Tab</h3>
+This section is a simplification of the Right Triangles section specifically for sine bars.
+<br>
+Minimum requirement: Any two fields
+<br>
+</div>
 	</form>
 <script>
 	window.onload = function()
