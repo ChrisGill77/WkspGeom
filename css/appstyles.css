@@ -8,6 +8,10 @@ body {
 	color: blue;
 }
 
+.help {
+	font-size: small;
+}
+
 .btns {
 	float: right;
 }
