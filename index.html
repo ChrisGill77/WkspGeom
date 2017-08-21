@@ -25,7 +25,7 @@
 	</div>
 	<ul class="tabs">
 		<li>
-			<input name="fldType" type="radio" id="tab1" value="circle" checked>
+			<input name="fldType" type="radio" id="tab1" value="circle" class="tab-radio" checked>
 			<label for="tab1" class="tab-label">Circles</label>
 			<div id="frmCircle" class="tab-content">
 				<table>
@@ -59,7 +59,7 @@
 		</li>
 
 		<li>
-			<input name="fldType" type="radio" id="tab2" value="polygon">
+			<input name="fldType" type="radio" id="tab2" value="polygon" class="tab-radio">
 			<label for="tab2" class="tab-label">Polygons</label>
 			<div id="frmPolygon" class="tab-content">
 				<table>
@@ -103,7 +103,7 @@
 		</li>
 
 		<li>
-			<input name="fldType" type="radio" id="tab3" value="triangle">
+			<input name="fldType" type="radio" id="tab3" value="triangle" class="tab-radio">
 			<label for="tab3" class="tab-label">Right triangles</label>
 			<div id="frmTriangle" class="tab-content">
 				<table>
@@ -132,7 +132,7 @@
 		</li>
 
 		<li>
-			<input name="fldType" type="radio" id="tab4" value="rectangle">
+			<input name="fldType" type="radio" id="tab4" value="rectangle" class="tab-radio">
 			<label for="tab4" class="tab-label">Rectangles</label>
 			<div id="frmRectangle" class="tab-content">
 				<table>
@@ -151,7 +151,7 @@
 		</li>
 		
 		<li>
-			<input name="fldType" type="radio" id="tab5" value="pcd">
+			<input name="fldType" type="radio" id="tab5" value="pcd" class="tab-radio">
 			<label for="tab5" class="tab-label">PCD</label>
 			<div id="frmPCD" class="tab-content">
 				<table>
@@ -170,12 +170,25 @@
 						<td><input id="fldPcdCtr" type="text" readonly title="Distance between hole centres"></td>
 						<td><input id="fldPcdCheck" type="text" readonly title="Distance across adjacent holes"></td>
 					</tr>
+					<tr>
+						<td>Coordinates:</td>
+						<td colspan=2>
+							<input name="fldCoord" type="radio" id="crdnone" value="none" checked><label for="crdnone">None</label>
+							<input name="fldCoord" type="radio" id="crdcentre" value="centre"><label for="crdctr">Centre</label>
+							<input name="fldCoord" type="radio" id="crdcorner" value="corner"><label for="crdcorner">Corner</label>
+						</td>
+					</tr>
 				</table>
+				<div id="crdList" hidden>
+					Hole coordinates from selected reference:
+					<p>
+					<div id="crdTable"></div>
+				</div>
 			</div>
 		</li>
 
 		<li>
-			<input name="fldType" type="radio" id="tab6" value="sine">
+			<input name="fldType" type="radio" id="tab6" value="sine" class="tab-radio">
 			<label for="tab6" class="tab-label">Sine</label>
 			<div id="frmSine" class="tab-content">
 				<table>
