@@ -775,6 +775,40 @@ var geometryCalcs = (function() {
 		showValue($("#fldPcdAng"), angle1);
 		showValue($("#fldPcdCtr"), len1);
 		showValue($("#fldPcdCheck"), len2);
+		
+		// See if coordinates are required
+		crd = $('input[name=fldCoord]:checked', '#frmGeometry').val(); // returns string
+		if (crd !== "none")
+			calculateCoordinates(crd);
+	}
+	
+	//
+	// Calculate and display a table of hole coordinates
+	//
+	function calculateCoordinates(crd) {
+		var a = 2 * Math.PI / num_sides;
+		var r = diameter / 2;
+		var x = y = b = 0;
+		var s = "<table style='width:50%;'><tr><th>X</th><th>Y</th></tr>";
+		
+		for (var i = 0; i < num_sides - 1; i++) {
+			b = i * a;
+			x = r * Math.sin(b);
+			y = r * Math.cos(b);
+			
+			// If using corner referece, offset the location
+			if (crd == "corner") {
+				x = r + x;
+				y = r - y;
+			}
+			
+			// Build the html
+			s += "<tr><td>" + x.toFixed(dps).toString() + "</td><td>" + y.toFixed(dps).toString() + "</td></tr>";
+		}
+		
+		s += "</table>";
+		$("#crdTable").html(s);
+		$("#crdList").show();
 	}
 	
 	//
@@ -787,6 +821,8 @@ var geometryCalcs = (function() {
 		resetField($("#fldPcdSize"), "0");
 		resetField($("#fldPcdCtr"), "");
 		resetField($("#fldPcdCheck"), "");
+		$("#crdList").hide();
+		$("#crdTable").empty();
 	}
 	
 	//
