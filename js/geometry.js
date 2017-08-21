@@ -786,13 +786,14 @@ var geometryCalcs = (function() {
 	// Calculate and display a table of hole coordinates
 	//
 	function calculateCoordinates(crd) {
-		var a = 2 * Math.PI / num_sides;
 		var r = diameter / 2;
-		var x = y = b = 0;
-		var s = "<table style='width:50%;'><tr><th>X</th><th>Y</th></tr>";
+		var x = y = a = b = 0;
+		var s = "<table style='width:50%;'><tr><th>Angle</th><th>X</th><th>Y</th></tr>";
+		angle2 = 2 * Math.PI / num_sides;
 		
-		for (var i = 0; i < num_sides - 1; i++) {
-			b = i * a;
+		for (var i = 0; i < num_sides; i++) {
+			a = i * angle1;
+			b = i * angle2;
 			x = r * Math.sin(b);
 			y = r * Math.cos(b);
 			
@@ -803,7 +804,10 @@ var geometryCalcs = (function() {
 			}
 			
 			// Build the html
-			s += "<tr><td>" + x.toFixed(dps).toString() + "</td><td>" + y.toFixed(dps).toString() + "</td></tr>";
+			s += "<tr><td>" + a.toFixed(dps).toString() + 
+				"</td><td>" + x.toFixed(dps).toString() + 
+				"</td><td>" + y.toFixed(dps).toString() + 
+				"</td></tr>";
 		}
 		
 		s += "</table>";
