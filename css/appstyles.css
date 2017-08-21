@@ -81,7 +81,7 @@ input[readonly] {
     display: block;
 }
 
-.tab-content{
+.tab-content {
 	z-index: 2;
 	display: none;
 	text-align: left;
@@ -93,4 +93,9 @@ input[readonly] {
 	top: 30px;
 	left: 0;
 	box-sizing: border-box;
+}
+
+.data {
+	padding: 1px 1em;
+	text-align: right;
 }
