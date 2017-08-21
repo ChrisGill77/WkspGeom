@@ -788,7 +788,7 @@ var geometryCalcs = (function() {
 	function calculateCoordinates(crd) {
 		var r = diameter / 2;
 		var x = y = a = b = 0;
-		var s = "<table style='width:50%;'><tr><th>Angle</th><th>X</th><th>Y</th></tr>";
+		var s = "<table class='data'><tr><th class='data'>Angle</th><th class='data'>X</th><th class='data'>Y</th></tr>";
 		angle2 = 2 * Math.PI / num_sides;
 		
 		for (var i = 0; i < num_sides; i++) {
@@ -804,9 +804,9 @@ var geometryCalcs = (function() {
 			}
 			
 			// Build the html
-			s += "<tr><td>" + a.toFixed(dps).toString() + 
-				"</td><td>" + x.toFixed(dps).toString() + 
-				"</td><td>" + y.toFixed(dps).toString() + 
+			s += "<tr><td class='data'>" + a.toFixed(dps).toString() + 
+				"</td><td class='data'>" + x.toFixed(dps).toString() + 
+				"</td><td class='data'>" + y.toFixed(dps).toString() + 
 				"</td></tr>";
 		}
 		
