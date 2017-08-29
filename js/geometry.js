@@ -943,7 +943,7 @@ var geometryCalcs = (function() {
 	// Display a value as a fraction 
 	//
 	function convertToFraction() {
-		len3 = Math.round(len2);		// Whole inches
+		len3 = Math.floor(len2);		// Whole inches
 		len6 = 0;
 		
 		var e = 0.000078;
