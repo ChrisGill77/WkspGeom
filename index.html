@@ -193,14 +193,44 @@
 			<div id="frmSine" class="tab-content">
 				<table>
 					<tr>
-						<td><label for="fldSinLen">Length</label>, <label for="fldSinHgt">height</label>:</td>
-						<td><input id="fldSinLen" type="number" min="0" value="0" title="Length of sine bar"></td>
+						<td><label for="fldSinHgt">Height</label>, <label for="fldSinLen">length</label>:</td>
 						<td><input id="fldSinHgt" type="number" min="0" value="0" title="Height of sine bar"></td>
+						<td><input id="fldSinLen" type="number" min="0" value="0" title="Length of sine bar"></td>
 					</tr>
 					<tr>
 						<td><label for="fldSinAng">Angle</label>:</td>
 						<td><input id="fldSinAng" type="number" min="0" value="0" title="Elevation angle"></td>
 						<td></td>
+					</tr>
+				</table>
+			</div>
+		</li>
+
+		<li>
+			<input name="fldType" type="radio" id="tab7" value="length" class="tab-radio">
+			<label for="tab7" class="tab-label">Length</label>
+			<div id="frmLength" class="tab-content">
+				<table>
+					<tr>
+						<td><label for="fldLenMm">mm</label>:</td>
+						<td><input id="fldLenMm" type="number" min="0" value="0" title="Length in millimeters"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldLenIns">Inches</label>:</td>
+						<td><input id="fldLenIns" type="number" min="0" value="0" title="Length in decimal inches"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><label for="fldLenInf1">Inches</label>:</td>
+						<td><input id="fldLenInf1" type="number" min="0" value="0" title="Length in whole inches">&nbsp;*&nbsp;</td>
+						<td><input id="fldLenInf2" type="number" min="0" value="0" title="Numerator of fractional inches">&nbsp;/&nbsp;</td>
+						<td><input id="fldLenInf3" type="number" min="0" value="1" title="Denominator of fractional inches"></td>
+					</tr>
+					<tr>
+						<td><label for="fldLenErr">And</label>:</td>
+						<td><input id="fldLenErr" type="text" readonly title="The fraction is too low (+) or too high (-) by this amount"></td>
+						<td>thou</td>
 					</tr>
 				</table>
 			</div>
@@ -269,18 +299,33 @@ This section deals with pitch circle diameters, including the size of the holes.
 <p>
 Required fields: PCD and count or angle
 </p><p>
-Optional fields: hole size
+Optional fields: hole size, coordinate reference
 </p>
 Notes on fields:
 <ul>
 <li>Across centres is the distance from one hole centre to the next, as would be set on compasses for marking out</li>
 <li>Across holes is the distance from the edge of one hole to the opposite edge of the next as would be measured when checking</li>
 </ul>
+<p>
+Selecting 'Centre' or 'Corner' makes the app calculate the coordinates of the holes with reference to the specified point:
+<ul>
+<li>Centre - the X and Y distances are from the centre of the PCD circle with the first hole directly above and the angle incrementing clockwise. Negative distances are below or to the left of the centre</li>
+<li>Corner - the X and Y distances are from the top, left corner of the square containing the PCD circle. The first hole is in the middle of the top edge. Angles increment clockwise and are from the centre (not the corner)</li>
+</ul>
 <h3>Sine Tab</h3>
-This section is a simplification of the Right Triangles section specifically for sine bars.
+This section is a simplification of the Right Triangles section specifically for sine bars. The height and length do not need to be real lenghts but could be chosen to specify a gradient, such as 1 in 100, etc.
 <p>
 Required fields: Any two fields
 </p>
+<h3>Lengths tab</h3>
+This section converts between millimeters and inches. Inches are entered or displayed in both decimal and fractional form.
+<p>
+Notes on fields:
+<ul>
+<li>Convert millimeters to inches - enter the length in mm. The app calculates the decimal inch equivalent and the nearest fraction (up to 64ths). If the fraction is low, a positive error is calculated. If it is too high the error is negative. For example, 4mm converts to 0.1575" and 1.2 thou over 5/32".</li>
+<li>Convert inches to millimeters - enter the decimal inches. The app calculates the equivalent number of millimeters and the fractional inches as above. For example, 1.2" equates to 30.48mm and is 3.1 thou under 1.13/64".</li>
+<li>Convert fractional inches to millimeters - enter whole numbers in all three fields. The app calculates millimeters and decimal inches.</li>
+</ul>
 </div>
 	</form>
 <script>
