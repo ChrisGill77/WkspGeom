@@ -5,6 +5,9 @@ var geometryCalcs = (function() {
     var len1 = 0;
     var len2 = 0;
     var len3 = 0;
+    var len4 = 0;
+    var len5 = 0;
+	var len6 = 0;
     var int_radius = 0;
     var ext_radius = 0;
 	var int_dia = 0;
@@ -70,6 +73,11 @@ var geometryCalcs = (function() {
 		$("#fldSinHgt").attr("step", step);
 		$("#fldSinAng").attr("step", step);
 
+		$("#fldLenMm").attr("step", step);
+		$("#fldLenIns").attr("step", step / 10);	// Work to one more decimal for inches
+		$("#fldLenInf1").attr("step", 1);			// These should be whole numbers
+		$("#fldLenInf2").attr("step", 1);
+		$("#fldLenInf3").attr("step", 1);
     }
 
 	//
@@ -557,11 +565,11 @@ var geometryCalcs = (function() {
 
 		// Now we can calculate everything
 		if (angle1 == 0) {
-			angle1 = 180 * Math.atan(len1 / len2) / Math.PI;
+			angle1 = 180 * Math.atan2(len1, len2) / Math.PI;
 		}
 
 		if (angle2 == 0) {
-			angle2 = 180 * Math.atan(len2 / len1) / Math.PI;
+			angle2 = 180 * Math.atan2(len2, len1) / Math.PI;
 		}
 
 		if (len3 == 0) {
@@ -778,14 +786,20 @@ var geometryCalcs = (function() {
 		
 		// See if coordinates are required
 		crd = $('input[name=fldCoord]:checked', '#frmGeometry').val(); // returns string
-		if (crd !== "none")
-			calculateCoordinates(crd);
+		calculateCoordinates(crd);
 	}
 	
 	//
 	// Calculate and display a table of hole coordinates
 	//
 	function calculateCoordinates(crd) {
+		// Hide the list if he changed his mind
+		if (crd == "none") {
+			$("#crdList").hide();
+			return;
+		}
+
+		// Build a table of coordinates
 		var r = diameter / 2;
 		var x = y = a = b = 0;
 		var s = "<table class='data'><tr><th class='data'>Angle</th><th class='data'>X</th><th class='data'>Y</th></tr>";
@@ -863,14 +877,14 @@ var geometryCalcs = (function() {
 				showAlert("Please supply two values");
 				return;
 			}
-			len1 = len2 / Math.sin((Math.PI / 180) * angle1);
+			len1 = len2 / Math.tan((Math.PI / 180) * angle1);
 		}
 		else {
 			if (len2 != 0) {
-				angle1 = Math.asin(len2 / len1) * 180 / Math.PI;
+				angle1 = Math.atan2(len2, len1) * 180 / Math.PI;
 			}
 			else if (angle1 != 0) {
-				len2 = len1 * Math.sin((Math.PI / 180) * angle1);
+				len2 = len1 * Math.tan((Math.PI / 180) * angle1);
 			}
 			else {
 				showAlert("Please supply two values");
@@ -894,6 +908,151 @@ var geometryCalcs = (function() {
 	}
 	
 	//
+	// Parse the inch-millimeter fields
+	//
+	function parseLength() {
+		len1 = parseField($("#fldLenMm"), "millimeters", 0, -1);
+		if (isNaN(len1)) {
+			return false;
+		}
+
+		len2 = parseField($("#fldLenIns"), "decimal inches", 0, -1);
+		if (isNaN(len2)) {
+			return false;
+		}
+
+		len3 = parseField($("#fldLenInf1"), "whole inches", 0, -1);
+		if (isNaN(len3)) {
+			return false;
+		}
+
+		len4 = parseField($("#fldLenInf2"), "inch numerator", 0, -1);
+		if (isNaN(len3)) {
+			return false;
+		}
+
+		len5 = parseField($("#fldLenInf3"), "inch denominator", 0, -1);
+		if (isNaN(len3)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	//
+	// Display a value as a fraction 
+	//
+	function convertToFraction() {
+		len3 = Math.round(len2);		// Whole inches
+		len6 = 0;
+		
+		var e = 0.000078;
+		var n = len2 - len3;
+		var d = 1;
+		
+		// Try to find a possible fraction that is within the error
+		while (d <= 64) {
+			if (Math.abs(n - Math.round(n)) < e)
+				break;
+			d *= 2;
+			n *= 2;
+			e *= 2;
+		}
+		
+		// D=1 isn't a fraction
+		if (d == 1) {
+			len4 = 0;
+			len5 = 1;
+			return;
+		}
+		
+		// It looks like a good result
+		if (d <= 64) {
+			len4 = Math.floor(n);
+			len5 = d;
+			return;
+		}
+		
+		// We overran the loop because it can't be expressed accurately as 64ths
+		// Back up to find a sensible approximation
+		n /= 2;
+		d /= 2;
+		while (Math.round(n) % 2 == 0) {
+			n /= 2;
+			d /= 2;
+		}
+		
+		len4 = Math.round(n);
+		len5 = d;
+		len6 = 1000 * (n - len4) / d;		// >0 the result is over by len6; <0 it is under
+	}
+
+	//
+	// Calculate the equivalent lengths
+	//
+	function calculateLength() {
+		if (!parseLength())
+			return;
+		
+		if (len1 != 0) {
+			// Convert mm to inch
+			len2 = len1 / 25.4;
+			convertToFraction();
+		}
+		else if (len2 != 0) {
+			// Convert decimal inches to mm
+			len1 = len2 * 25.4;
+			convertToFraction();
+		}
+		else if ((len3 != 0) || (len4 != 0)) {
+			// Convert fraction inches to mm
+			// Make sure the fields are integers
+			if ((len3 % 1 != 0) || (len4 % 1 != 0) || (len5 % 1 != 0)) {
+				showAlert("The fraction fields must be whole numbers");
+				return;
+			}
+			
+			// Accept zero as a denominator
+			if (len5 == 0)
+				len5 = 1;
+			
+			// Calculate the other values
+			len2 = len3 + len4 / len5;
+			len1 = len2 * 25.4;
+			len6 = 0;
+		}
+		else {
+			showAlert("Please supply one length to convert");
+			return;
+		}
+
+		// Display the results
+		showValue($("#fldLenMm"), len1);
+		$("#fldLenIns").val(len2.toFixed(dps + 1).toString());
+		$("#fldLenInf1").val(len3.toFixed(0).toString());
+		$("#fldLenInf2").val(len4.toFixed(0).toString());
+		$("#fldLenInf3").val(len5.toFixed(0).toString());
+		if (len6 == 0)
+			$("#fldLenErr").val(" ");
+		else if (len6 < 0)
+			$("#fldLenErr").val(len6.toFixed(1).toString());
+		else
+			$("#fldLenErr").val("+" + len6.toFixed(1).toString());
+	}
+	
+	//
+	// Reset the inch-millimeter fields
+	//
+	function clearLength() {
+		resetField($("#fldLenMm"), "0");
+		resetField($("#fldLenIns"), "0");
+		resetField($("#fldLenInf1"), "0");
+		resetField($("#fldLenInf2"), "0");
+		resetField($("#fldLenInf3"), "1");
+		resetField($("#fldLenErr"), " ");
+	}
+	
+	//
 	// Dispatch to the relevant calculator
 	//
 	function calculateForm() {
@@ -911,6 +1070,8 @@ var geometryCalcs = (function() {
 			case "pcd": calculatePCD();
 				break;
 			case "sine": calculateSine();
+				break;
+			case "length": calculateLength();
 				break;
 		}
 	}
@@ -933,6 +1094,8 @@ var geometryCalcs = (function() {
 			case "pcd": clearPCD();
 				break;
 			case "sine": clearSine();
+				break;
+			case "length": clearLength();
 				break;
 		}
 	}
