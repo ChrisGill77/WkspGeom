@@ -216,6 +216,12 @@ var geometryCalcs = (function() {
 			diameter = radius * 2;
 			circum = diameter * Math.PI;
 		}
+		else if ((len2 != 0) && (len3 != 0)) {
+			radius = (len2 * len2 +  4 * len3 * len3) / (8 * len3);
+			diameter = radius * 2;
+			circum = diameter * Math.PI;
+			area1 = radius * radius * Math.PI;
+		}
 		else {
 			showAlert("Please supply the radius, diameter, circumference or area");
 			return;
