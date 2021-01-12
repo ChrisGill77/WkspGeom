@@ -9,6 +9,9 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <icon src="icon.png" />
-    <icon src="res/icon-96.png" platform="android" qualifier="xhdpi" />
+	<preference name="Orientation" value="landscape" />
+	<preference name="Fullscreen" value="true" />
+	<platform name="android">
+		<icon density="xhdpi" src="resources/android/icon/icon-96.png" />
+	</platform>
 </widget>

@@ -1,0 +1,22 @@
+{
+  "name": "Geometry",
+  "version": "2.0.0",
+  "description": "This is a simple mobile phone / browser app intended to simplify common geometrical calculations in a workshop",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisGill77/WkspGeom.git"
+  },
+  "keywords": [
+    "geometry"
+  ],
+  "author": "Chris Gill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChrisGill77/WkspGeom/issues"
+  },
+  "homepage": "https://github.com/ChrisGill77/WkspGeom#readme"
+}

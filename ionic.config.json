@@ -1,0 +1,7 @@
+{
+  "name": "Geometry",
+  "type": "custom",
+  "integrations": {
+    "cordova": {}
+  }
+}
